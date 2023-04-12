@@ -1,8 +1,6 @@
 import React from "react";
 import { Box, Grid, Typography, Button, makeStyles } from "@material-ui/core";
-
-const skills = ["Javascript", "React.js", "Node.js"];
-
+import { differenceInMinutes } from "date-fns";
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     border: "1px solid #e8e8e8",
@@ -39,14 +37,14 @@ export default (props) => {
     <Box p={2} className={classes.wrapper}>
       <Grid container alignItems="center">
         <Grid item xs>
-          <Typography variant="subtitle1">Frontend Dev</Typography>
+          <Typography variant="subtitle1">{props.title}</Typography>
           <Typography className={classes.companyName} variant="subtitle1">
-            Google
+            {props.companyName}
           </Typography>
         </Grid>
 
         <Grid item container xs>
-          {skills.map((skill) => (
+          {props.skills.map((skill) => (
             <Grid key={skill} className={classes.skillChip} item>
               {skill}
             </Grid>
@@ -56,12 +54,15 @@ export default (props) => {
         <Grid item container direction="column" alignItems="flex-end" xs>
           <Grid item>
             <Typography variant="caption">
-              2577 min ago | Full time | Remote
+              {differenceInMinutes(Date.now(), props.postedOn)} min ago |{" "}
+              {props.type} | {props.location}
             </Typography>
           </Grid>
           <Grid item>
             <Box mt={2}>
-              <Button variant="outlined">Check</Button>
+              <Button onClick={props.open} variant="outlined">
+                Check
+              </Button>
             </Box>
           </Grid>
         </Grid>
